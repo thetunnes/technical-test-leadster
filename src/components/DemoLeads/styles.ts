@@ -2,22 +2,75 @@ import styled from 'styled-components'
 
 export const DemoLeadsContainer = styled.section`
   background: ${(props) => props.theme.colors.blue[100]};
-  position: relative;
-  height: 300px;
-`
-export const Mountain = styled.div`
-  position: relative;
-  bottom: 0;
-  width: 50%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem 2rem;
 
-  background: radial-gradient(
-        5rem at 10% calc(100% - 5rem),
-        #000 99%,
-        #0000 101%
-      )
-      calc(50% - 10rem) 0/20rem 100%,
-    radial-gradient(5rem at 50% calc(100% + 0rem), #0000 99%, #000 101%) 50%
-      calc(100% - 5rem) / 20rem 100%;
-  border-radius: 0 0 10px 10px; /* Cantos arredondados */
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`
+
+export const BannerImg = styled.div`
+  flex: 1;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+`
+
+export const ActionDemoLeadsWithUs = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.5rem;
+
+  h3,
+  p {
+    font-family: 'JakartaMedium';
+    line-height: 1.25;
+    font-weight: 500;
+
+    :not(p) {
+      font-size: 1.5rem;
+    }
+  }
+
+  > p {
+    padding: 0.25rem 0 1rem 0;
+    border-bottom: 1px solid ${(props) => props.theme.colors.gray[200]};
+  }
+
+  strong {
+    font-family: 'JakartaBold';
+  }
+
+  > footer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    > section:first-child {
+      border-right: 2px solid ${(props) => props.theme.colors.gray[500]};
+      padding-right: 0.5rem;
+    }
+  }
+`
+
+export const NavDemoLead = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+`
+
+export const BoxFooter = styled.section`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 `
