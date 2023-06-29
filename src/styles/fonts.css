@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'JakartaExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JakartaBold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JakartaMedium';
+  font-weight: 500;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JakartaRegular';
+  font-weight: 400;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JakartaLight';
+  font-weight: 300;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JakartaExtraBold';
+  font-weight: 200;
+  font-style: normal;
+  src: url('/fonts/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+}
