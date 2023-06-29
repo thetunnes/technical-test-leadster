@@ -1,5 +1,11 @@
 import Image from 'next/image'
-import { MainBannerContainer, MainText, TagTextBtn, Text } from './styles'
+import {
+  MainBannerContainer,
+  MainText,
+  TagTextBtn,
+  Text,
+  TextWithIconTop,
+} from './styles'
 import TopoImg from '@/assets/asset-header.png'
 
 export function MainBanner() {
@@ -9,8 +15,10 @@ export function MainBanner() {
 
       <h2>Menos Conversinha,</h2>
       <MainText>
-        Mais Conversão
-        <Image src={TopoImg} alt="" width={32} />
+        Mais{' '}
+        <TextWithIconTop>
+          Conversão <Image src={TopoImg} alt="" width={32} />
+        </TextWithIconTop>
       </MainText>
 
       <Text>
