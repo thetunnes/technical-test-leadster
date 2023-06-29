@@ -1,0 +1,7 @@
+{
+  "videos": [
+    { "id": 1, "title": "Como aumentar sua geração de Leads feat. Traktor", "video_url": "https://www.youtube.com/watch?v=w9xS4v98T9o&t=921s", "tags": ["leadGeneration", "paidMedia", "chatbot"]},
+    { "id": 2, "title": "Como aumentar sua geração de Leads feat. Traktor", "video_url": "https://www.youtube.com/watch?v=WdUnEtKc61Q", "tags": ["leadGeneration", "chatbot"]},
+    { "id": 3, "title": "Como aumentar sua geração de Leads feat. Traktor", "video_url": "https://www.youtube.com/watch?v=o7qnEYyC9Pg", "tags": ["leadGeneration", "paidMedia"]}
+  ]
+}

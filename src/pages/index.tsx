@@ -1,5 +1,6 @@
 import { DemoLeads } from '@/components/DemoLeads'
 import { Header } from '@/components/Header'
+import { ListVideos } from '@/components/ListVideos'
 import { MainBanner } from '@/components/MainBanner'
 import Head from 'next/head'
 import styled from 'styled-components'
@@ -18,7 +19,7 @@ export default function Home() {
       <Header />
       <main style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
         <MainBanner />
-        <div style={{ height: '400px', background: '#FFF' }}></div>
+        <ListVideos />
         <DemoLeads />
         <div style={{ height: '400px', background: '#FFF' }}></div>
       </main>

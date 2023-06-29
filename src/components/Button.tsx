@@ -20,7 +20,7 @@ const ButtonStyled = styled.button<ButtonStyledProps>`
   ${(props) =>
     props.smallText
       ? css`
-          padding: 0.5rem;
+          padding: 0.5rem 1rem;
           font-size: 0.75rem;
         `
       : css`
@@ -54,8 +54,9 @@ const ButtonStyled = styled.button<ButtonStyledProps>`
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  active: boolean
-  smallText: boolean
+  active?: boolean
+  smallText?: boolean
+  key?: string
 }
 export function Button({
   children,
