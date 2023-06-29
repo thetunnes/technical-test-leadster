@@ -11,6 +11,11 @@ const ButtonStyled = styled.button<ButtonStyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
 
   ${(props) =>
     props.smallText
