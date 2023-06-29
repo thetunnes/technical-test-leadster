@@ -16,15 +16,23 @@ const HeaderContainer = styled.header`
 
   img {
     aspect-ratio: 2/1;
+    cursor: pointer;
   }
 `
 
 export function Header() {
+  const handleImageClick = () => {
+    window.scrollTo({
+      top: 0, // Define a posição desejada do scrollTop
+      behavior: 'smooth', // Define o comportamento da rolagem (opcional)
+    })
+  }
   return (
     <HeaderContainer>
       <Image
         src={LogoLeadster}
         alt="Estrela de 6 pontas na esquerda em azul e Leadster na direita em preto"
+        onClick={() => handleImageClick()}
       />
     </HeaderContainer>
   )
