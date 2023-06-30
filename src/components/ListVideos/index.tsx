@@ -29,35 +29,26 @@ export function ListVideos() {
   const [tagsToNav, setTagsToNav] = useState<ITagsNav>({})
   const [isLoading, setIsLoading] = useState(true)
 
-  const videosPerPage = 2
+  const videosPerPage = 6
   const amountPages = Math.ceil(db.videos.length / videosPerPage)
 
   async function fetchJsonAPI(page?: string) {
     setIsLoading(true)
 
-    await fetch(
-      `http://localhost:3004/videos?_page=${page ?? 1}&_limit=${videosPerPage}`,
-      {
-        method: 'GET',
-      },
-    )
+    const url = `http://localhost:3004/videos?_page=${
+      page ?? 1
+    }&_limit=${videosPerPage}`
+
+    await fetch(url, {
+      method: 'GET',
+    })
       .then(async (response) => await response.json())
       .then((data: IVideo[]) => {
-        const allTags = data.reduce((acc, video) => {
-          for (const tag of video.tags) {
-            if (!acc[tag]) {
-              acc = {
-                ...acc,
-                [tag]: false,
-              }
-            }
-          }
-          return acc
-        }, {} as ITagsNav)
-
         setVideos(data)
-        setTagsToNav(allTags)
         setIsLoading(false)
+      })
+      .catch((err) => {
+        console.log(err)
       })
   }
 
@@ -69,8 +60,21 @@ export function ListVideos() {
   }
 
   const videosFiltered = useMemo(() => {
-    if (tagsToNav.length) {
-      return videos
+    if (Object.values(tagsToNav).some((tag) => tag)) {
+      const filterVideos = [] as IVideo[]
+      for (const x in tagsToNav) {
+        if (tagsToNav[x]) {
+          videos.forEach((video) => {
+            if (
+              video.tags.includes(x) &&
+              !filterVideos.some((vid) => vid === video)
+            ) {
+              filterVideos.push(video)
+            }
+          })
+        }
+      }
+      return filterVideos
     }
 
     return videos
@@ -78,6 +82,20 @@ export function ListVideos() {
 
   useEffect(() => {
     fetchJsonAPI()
+
+    const allTags = db.videos.reduce((acc, video) => {
+      for (const tag of video.tags) {
+        if (!acc[tag]) {
+          acc = {
+            ...acc,
+            [tag]: false,
+          }
+        }
+      }
+      return acc
+    }, {} as ITagsNav)
+
+    setTagsToNav(allTags)
   }, [])
 
   return (
@@ -104,6 +122,7 @@ export function ListVideos() {
                   <BoxVideo key={video.id}>
                     <Image src={ThumbnailVideo} alt="" />
                     <p>{video.title}</p>
+                    <span>{video.tags.map((tag) => `${tag}, `)}</span>
                   </BoxVideo>
                 ))}
               </ListVideosWrapper>

@@ -12,6 +12,10 @@ export const ListVideosContainer = styled.section`
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
+
+    > p {
+      margin: 0 auto;
+    }
   }
 `
 
