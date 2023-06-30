@@ -11,7 +11,7 @@ import TopoImg from '@/assets/asset-header.png'
 export function MainBanner() {
   return (
     <MainBannerContainer>
-      <TagTextBtn>webinars exclusivos</TagTextBtn>
+      <TagTextBtn disabled>webinars exclusivos</TagTextBtn>
 
       <h2>Menos Conversinha,</h2>
       <MainText>

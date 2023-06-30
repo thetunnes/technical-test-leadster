@@ -14,6 +14,11 @@ const HeaderContainer = styled.header`
   right: 0;
   z-index: 999;
 
+  > button {
+    background: none;
+    border: 0;
+  }
+
   img {
     aspect-ratio: 2/1;
     cursor: pointer;
@@ -29,11 +34,12 @@ export function Header() {
   }
   return (
     <HeaderContainer>
-      <Image
-        src={LogoLeadster}
-        alt="Estrela de 6 pontas na esquerda em azul e Leadster na direita em preto"
-        onClick={() => handleImageClick()}
-      />
+      <button type="button" onClick={() => handleImageClick()}>
+        <Image
+          src={LogoLeadster}
+          alt="Estrela de 6 pontas na esquerda em azul e Leadster na direita em preto"
+        />
+      </button>
     </HeaderContainer>
   )
 }

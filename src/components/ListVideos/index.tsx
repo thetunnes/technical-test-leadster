@@ -9,6 +9,10 @@ import Image from 'next/image'
 import ThumbnailVideo from '@/assets/thumbnail.png'
 import { Button } from '../Button'
 
+import db from '../../../db-video.json'
+import { Pagination } from '../Pagination'
+import { Loading } from '../Loading'
+
 interface IVideo {
   id: number
   title: string
@@ -25,11 +29,18 @@ export function ListVideos() {
   const [tagsToNav, setTagsToNav] = useState<ITagsNav>({})
   const [isLoading, setIsLoading] = useState(true)
 
-  async function fetchJsonAPI() {
+  const videosPerPage = 2
+  const amountPages = Math.ceil(db.videos.length / videosPerPage)
+
+  async function fetchJsonAPI(page?: string) {
     setIsLoading(true)
-    await fetch('http://localhost:3004/videos', {
-      method: 'GET',
-    })
+
+    await fetch(
+      `http://localhost:3004/videos?_page=${page ?? 1}&_limit=${videosPerPage}`,
+      {
+        method: 'GET',
+      },
+    )
       .then(async (response) => await response.json())
       .then((data: IVideo[]) => {
         const allTags = data.reduce((acc, video) => {
@@ -58,7 +69,6 @@ export function ListVideos() {
   }
 
   const videosFiltered = useMemo(() => {
-    console.log('Um teste')
     if (tagsToNav.length) {
       return videos
     }
@@ -73,29 +83,36 @@ export function ListVideos() {
   return (
     <ListVideosContainer>
       <div>
-        {isLoading ? (
-          <p>Carregando...</p>
-        ) : videos.length ? (
+        <HeaderNavVideos>
+          {Object.keys(tagsToNav).map((tag) => (
+            <Button
+              key={tag}
+              onClick={() => filterByTag(tag)}
+              active={tagsToNav[tag]}
+            >
+              {tag}
+            </Button>
+          ))}
+        </HeaderNavVideos>
+        {videos.length ? (
           <>
-            <HeaderNavVideos>
-              {Object.keys(tagsToNav).map((tag) => (
-                <Button
-                  key={tag}
-                  onClick={() => filterByTag(tag)}
-                  active={tagsToNav[tag]}
-                >
-                  {tag}
-                </Button>
-              ))}
-            </HeaderNavVideos>
-            <ListVideosWrapper>
-              {videosFiltered.map((video) => (
-                <BoxVideo key={video.id}>
-                  <Image src={ThumbnailVideo} alt="" />
-                  <p>{video.title}</p>
-                </BoxVideo>
-              ))}
-            </ListVideosWrapper>
+            {isLoading ? (
+              <Loading text="Carregando..." />
+            ) : (
+              <ListVideosWrapper>
+                {videosFiltered.map((video) => (
+                  <BoxVideo key={video.id}>
+                    <Image src={ThumbnailVideo} alt="" />
+                    <p>{video.title}</p>
+                  </BoxVideo>
+                ))}
+              </ListVideosWrapper>
+            )}
+            <Pagination
+              amountPages={amountPages}
+              fetchVideos={fetchJsonAPI}
+              currentPage={Math.ceil(videos[0].id / videosPerPage)}
+            />
           </>
         ) : (
           <p>Não foi possível listar livros</p>

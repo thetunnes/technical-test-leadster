@@ -20,6 +20,7 @@ export const HeaderNavVideos = styled.header`
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 1rem 0;
 
   > button {
     font-family: 'JakartaBold';
@@ -33,6 +34,11 @@ export const ListVideosWrapper = styled.div`
   justify-content: center;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
+
+  border-top: 1px solid ${(props) => props.theme.colors.gray[200]};
+  border-bottom: 1px solid ${(props) => props.theme.colors.gray[200]};
+
+  padding: 2.5rem 0;
 
   @media screen and (max-width: 700px) {
     grid-template-columns: repeat(2, 1fr);
@@ -52,6 +58,13 @@ export const BoxVideo = styled.button`
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  cursor: pointer;
+
+  &:hover {
+    img {
+      transform: scale(0.9);
+    }
+  }
 
   &::before,
   &::after {
@@ -85,7 +98,8 @@ export const BoxVideo = styled.button`
   img {
     width: 100%;
     flex: 1;
-    border-radius: 6px;
+    border-radius: 6px 6px 0 0;
+    transition: transform 0.4s;
   }
 
   > p {
