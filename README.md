@@ -1,38 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Criei um Projeto NextJS na versão 13 com TypeScript, esse projeto não irá utilizar TailwindCSS, como também não irá utilizar o App Folder (nova estrutura de pastas que trás novas funcionalidades dentro do Next13).
 
-## Getting Started
+## Executar o projeto
 
-First, run the development server:
+**Passo a passo de como rodar o projeto em ambiente local:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Executar o `git clone` passando a `url` do projeto para clonar em sua máquina.
+- Após clonar, acessar a pasta do projeto e **instalar as dependências** (rodar `yarn` no terminal).
+- Nosso projeto utiliza o JSON Server e para rodar com todas as funcionalidades em tela precisamos executar o JSON Server junto de nosso projeto. Para isso, criei um script que executa tanto o projeto Next, quanto o JSON Server. Para isso, só precisamos rodar `yarn start:dev` . Utilizando o pacote concurrently é permitido que rode 2 ou mais scripts simultâneos com apenas um comando, então o nosso `yarn start:dev` **executa 2 scripts**, o `yarn dev` e o `yarn json:server` ao mesmo tempo.
+- Assim, nossa aplicação está rodando, é só acessar http://localhost:3000.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estilizações
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+**Aqui irei descrever as principais decisões que tomei para ter uma boa base de `styles` no projeto:**
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Peguei os arquivos de fonts disponibilizado no teste, adicionei na pasta `public` e defini um arquivo `fonts.css`, o qual, utilizando a propriedade font-face do CSS, conseguimos definir fontes customizadas para nossa aplicação.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Defini um arquivo de tema, com as cores que serão utilizadas no projeto, em conjunto desse arquivo também fiz a definição de tipagens para o styled-components, editando a tipagem padrão do `DefaultTheme` adicionando o **typeof** do objeto de tema definido.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Defini também um `Global Style` do Styled Components, o qual reseta propriedades do navegador (**padding, box-sizing, border-focus, margin**) e adiciona **cores** e **fontes** e **tamanhos** padrão para toda a aplicação.
 
-## Learn More
+Como estrutura de código para estilos, crio sempre um “Container” que engloba todo o Componente definindo **background, padding, margin.** Dentro do Container, quando necessário, crio um “Wrapper” que define **largura máxima** dos elementos, **display (grid, flex, block),** dentro do Wrapper entra tudo que deve ser renderizado naquele Componente.
 
-To learn more about Next.js, take a look at the following resources:
+## Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Vou descrever um pouco das decisões que tomei para criar alguns dos componentes importantes para o projeto:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Demo Leads
 
-## Deploy on Vercel
+O componente **DemoLeads** é a seção de venda da nossa plataforma, ela tem um Background específico o qual tem uma **simulação de histograma** com uma `cor sólida` sobre o background do da seção. Para isso criei um elemento Componente de estilo `Mountain` o qual, utilizando propriedades CSS, pseudo-elements, cria um elemento responsivo que simula um histograma utilizando a cor `#E6F3FF`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Fora o Background, não tem muito de específico aqui, um flexbox entre uma imagem e uma Box o qual contém um botão que não executa nada até o momento.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### List Videos
+
+Nesse componente, para ganhar uma melhor performance e rápida renderização, escolhi utilizar o pacote SWR fornecido pela própria Vercel. Aqui definimos um hook que recebe a API que irá buscar e o metódo que fará a requisição http (no caso, a função `fetcher`).
+
+### Pagination
+
+Esse componente é um aprendizado que guardo com muito carinho kkk, poder criar um sistema de controlar paginação recebendo state e setState através de propriedades. 
+
+O Componente fala por si só, recebe **página atual**, **quantidade máxima** de páginas e **função** para o **onClick** (no caso, um estado que representa a próxima página a ser buscada).
