@@ -87,6 +87,10 @@ export function ListVideos() {
     setTagsToNav(allTags)
   }, [])
 
+  if (isLoading) {
+    return <Loading text="Carregando..." />
+  }
+
   if (error || !videos) {
     return <p>Oh no, error here</p>
   }
@@ -107,18 +111,15 @@ export function ListVideos() {
         </HeaderNavVideos>
         {videos?.length ? (
           <>
-            {isLoading ? (
-              <Loading text="Carregando..." />
-            ) : (
-              <ListVideosWrapper>
-                {videosFiltered.map((video) => (
-                  <BoxVideo key={video.id} onClick={() => toggleModal(video)}>
-                    <Image src={ThumbnailVideo} alt="" />
-                    <p>{video.title}</p>
-                  </BoxVideo>
-                ))}
-              </ListVideosWrapper>
-            )}
+            <ListVideosWrapper>
+              {videosFiltered.map((video) => (
+                <BoxVideo key={video.id} onClick={() => toggleModal(video)}>
+                  <Image src={ThumbnailVideo} alt="" />
+                  <p>{video.title}</p>
+                </BoxVideo>
+              ))}
+            </ListVideosWrapper>
+
             <Pagination
               amountPages={amountPages}
               fetchVideos={(newPage: number) => setCurrentPage(newPage)}
