@@ -10,21 +10,16 @@ import {
 } from './styles'
 import { BiX } from 'react-icons/bi'
 import { LuDownloadCloud } from 'react-icons/lu'
+import { IVideo } from '../ListVideos'
 
 interface ModalProps {
   isOpen: boolean
   onClose: () => void
-  dataVideo: {
-    id: number
-    title: string
-    description: string
-    tags: Array<string>
-  }
+  dataVideo: Omit<IVideo, 'id'> | null
 }
 
 export function Modal({ isOpen, onClose, dataVideo }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
-
   const attributesVideo = {
     description: dataVideo?.description,
     tags: dataVideo?.tags,
@@ -36,7 +31,7 @@ export function Modal({ isOpen, onClose, dataVideo }: ModalProps) {
       onClose()
     }
   }
-  if (!isOpen) {
+  if (!isOpen || !dataVideo) {
     return null
   }
 

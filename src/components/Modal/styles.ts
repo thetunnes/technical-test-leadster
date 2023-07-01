@@ -41,6 +41,8 @@ export const BtnCloseModal = styled.button`
   top: 12px;
   right: 12px;
 
+  cursor: pointer;
+
   color: ${(props) => props.theme.colors.gray[300]};
   background: none;
   border: 0;
@@ -65,6 +67,8 @@ export const ModalWrapper = styled.div`
 
   video {
     width: 100%;
+    height: 50%;
+    max-height: 50vh;
     border: 1px solid ${(props) => props.theme.colors.blue[300]};
   }
 `
@@ -82,6 +86,7 @@ export const TitleWebinar = styled.h1`
 `
 
 export const BoxAttributes = styled.section`
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

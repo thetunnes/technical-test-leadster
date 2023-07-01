@@ -8,15 +8,17 @@ import {
 import Image from 'next/image'
 import ThumbnailVideo from '@/assets/thumbnail.png'
 import { Button } from '../Button'
-
 import db from '../../../db-video.json'
+
 import { Pagination } from '../Pagination'
 import { Loading } from '../Loading'
 import { Modal } from '../Modal'
+import { useFetchVideos } from './fetchVideos'
 
-interface IVideo {
+export interface IVideo {
   id: number
   title: string
+  description: string
   video_url: string
   tags: Array<string>
 }
@@ -26,37 +28,20 @@ interface ITagsNav {
 }
 
 export function ListVideos() {
-  const [videos, setVideos] = useState<IVideo[]>([])
+  const videosPerPage = 6
+  const amountPages = Math.ceil(db.videos.length / videosPerPage)
+  const [currentPage, setCurrentPage] = useState(1)
+  const { videos, isLoading, error } = useFetchVideos(
+    currentPage,
+    videosPerPage,
+  )
+
   const [tagsToNav, setTagsToNav] = useState<ITagsNav>({})
-  const [isLoading, setIsLoading] = useState(true)
 
   const [dataToModal, setDataToModal] = useState<IVideo | null>(null)
 
-  const videosPerPage = 6
-  const amountPages = Math.ceil(db.videos.length / videosPerPage)
-
   function toggleModal(dataVideo?: IVideo) {
     dataVideo ? setDataToModal(dataVideo) : setDataToModal(null)
-  }
-
-  async function fetchJsonAPI(page?: string) {
-    setIsLoading(true)
-
-    const url = `http://localhost:3004/videos?_page=${
-      page ?? 1
-    }&_limit=${videosPerPage}`
-
-    await fetch(url, {
-      method: 'GET',
-    })
-      .then(async (response) => await response.json())
-      .then((data: IVideo[]) => {
-        setVideos(data)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
   }
 
   function filterByTag(tag: string) {
@@ -66,12 +51,12 @@ export function ListVideos() {
     }))
   }
 
-  const videosFiltered = useMemo(() => {
+  const videosFiltered: IVideo[] = useMemo(() => {
     if (Object.values(tagsToNav).some((tag) => tag)) {
       const filterVideos = [] as IVideo[]
       for (const x in tagsToNav) {
         if (tagsToNav[x]) {
-          videos.forEach((video) => {
+          videos.forEach((video: IVideo) => {
             if (
               video.tags.includes(x) &&
               !filterVideos.some((vid) => vid === video)
@@ -88,8 +73,6 @@ export function ListVideos() {
   }, [tagsToNav, videos])
 
   useEffect(() => {
-    fetchJsonAPI()
-
     const allTags = db.videos.reduce((acc, video) => {
       for (const tag of video.tags) {
         if (!acc[tag]) {
@@ -101,9 +84,12 @@ export function ListVideos() {
       }
       return acc
     }, {} as ITagsNav)
-
     setTagsToNav(allTags)
   }, [])
+
+  if (error || !videos) {
+    return <p>Oh no, error here</p>
+  }
 
   return (
     <ListVideosContainer>
@@ -119,7 +105,7 @@ export function ListVideos() {
             </Button>
           ))}
         </HeaderNavVideos>
-        {videos.length ? (
+        {videos?.length ? (
           <>
             {isLoading ? (
               <Loading text="Carregando..." />
@@ -135,7 +121,7 @@ export function ListVideos() {
             )}
             <Pagination
               amountPages={amountPages}
-              fetchVideos={fetchJsonAPI}
+              fetchVideos={(newPage: number) => setCurrentPage(newPage)}
               currentPage={Math.ceil(videos[0].id / videosPerPage)}
             />
           </>

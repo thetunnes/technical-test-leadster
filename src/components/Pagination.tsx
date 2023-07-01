@@ -45,16 +45,16 @@ const BtnPage = styled.button<BtnPageProps>`
 interface Props {
   currentPage: number
   amountPages: number
-  fetchVideos: (page: string) => void
+  fetchVideos: (page: number) => void
 }
 
 export function Pagination({ currentPage, amountPages, fetchVideos }: Props) {
   return (
     <PaginationContainer>
       <p>Página</p>
-      {currentPage > 1 && <BtnPage onClick={() => fetchVideos('1')}>1</BtnPage>}
+      {currentPage > 1 && <BtnPage onClick={() => fetchVideos(1)}>1</BtnPage>}
       {currentPage > 2 && (
-        <BtnPage onClick={() => fetchVideos(String(currentPage - 1))}>
+        <BtnPage onClick={() => fetchVideos(currentPage - 1)}>
           {currentPage - 1}
         </BtnPage>
       )}
@@ -62,12 +62,12 @@ export function Pagination({ currentPage, amountPages, fetchVideos }: Props) {
         {currentPage}
       </BtnPage>
       {currentPage < amountPages - 1 && (
-        <BtnPage onClick={() => fetchVideos(String(currentPage + 1))}>
+        <BtnPage onClick={() => fetchVideos(currentPage + 1)}>
           {currentPage + 1}
         </BtnPage>
       )}
       {currentPage < amountPages && (
-        <BtnPage onClick={() => fetchVideos(String(amountPages))}>
+        <BtnPage onClick={() => fetchVideos(amountPages)}>
           {amountPages}
         </BtnPage>
       )}
