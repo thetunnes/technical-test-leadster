@@ -12,7 +12,7 @@ export const ModalOverlay = styled.div`
 `
 
 export const ModalContainer = styled.div`
-  position: relative;
+  position: absolute;
   left: 50%;
   top: 50%;
   z-index: 9999;
@@ -20,7 +20,7 @@ export const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  max-width: 70vw;
+  max-width: 50vw;
   max-height: 85vh;
 
   background: ${(props) => props.theme.colors.white};
@@ -34,6 +34,10 @@ export const ModalContainer = styled.div`
     height: 2px;
     margin: 0 auto;
     background: ${(props) => props.theme.colors.blue[500]};
+  }
+
+  @media screen and (max-width: 900px) {
+    max-width: 85vw;
   }
 `
 export const BtnCloseModal = styled.button`
@@ -125,6 +129,7 @@ export const BoxTag = styled.section<Props>`
   justify-content: space-between;
   border: 1px solid ${(props) => props.theme.colors.blue[800]};
   border-radius: 6px;
+  background: ${(props) => props.theme.colors.blue[200]};
 
   div:first-child {
     border-top-left-radius: 6px;
@@ -144,19 +149,34 @@ export const BoxTag = styled.section<Props>`
     justify-content: center;
     background: ${(props) => props.theme.colors.blue[300]};
 
-    padding: 0.5rem;
+    padding: 0.75rem;
     svg {
       font-size: 1.125rem;
     }
   }
 
   div.text {
-    flex: 1;
-    background: ${(props) => props.theme.colors.blue[200]};
-
     padding: 0.5rem;
     p {
       font-size: 1.125rem;
     }
+  }
+`
+
+export const GroupBoxTag = styled.div`
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  padding: 0.5rem 1rem;
+  background: ${(props) => props.theme.colors.white};
+
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `

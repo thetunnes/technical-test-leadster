@@ -3,6 +3,7 @@ import {
   BoxAttributes,
   BoxTag,
   BtnCloseModal,
+  GroupBoxTag,
   ModalContainer,
   ModalOverlay,
   ModalWrapper,
@@ -37,6 +38,20 @@ export function Modal({ isOpen, onClose, dataVideo }: ModalProps) {
 
   return (
     <ModalOverlay ref={overlayRef} onClick={handleOverlayClick}>
+      {attributesVideo.tags?.length ? (
+        <GroupBoxTag>
+          {attributesVideo.tags.map((tag) => (
+            <BoxTag key={tag}>
+              <div className="icon">
+                <LuDownloadCloud />
+              </div>
+              <div className="text">
+                <p>{tag}</p>
+              </div>
+            </BoxTag>
+          ))}
+        </GroupBoxTag>
+      ) : null}
       <ModalContainer>
         <BtnCloseModal onClick={onClose}>
           <BiX size={24} />

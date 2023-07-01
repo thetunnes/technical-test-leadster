@@ -109,7 +109,7 @@ export function ListVideos() {
             </Button>
           ))}
         </HeaderNavVideos>
-        {videos?.length ? (
+        {videosFiltered?.length ? (
           <>
             <ListVideosWrapper>
               {videosFiltered.map((video) => (
@@ -127,7 +127,7 @@ export function ListVideos() {
             />
           </>
         ) : (
-          <p>Não foi possível listar livros</p>
+          <p>Não foi possível listar Webniars</p>
         )}
       </div>
 
