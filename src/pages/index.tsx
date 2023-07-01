@@ -1,4 +1,5 @@
 import { DemoLeads } from '@/components/DemoLeads'
+import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { ListVideos } from '@/components/ListVideos'
 import { MainBanner } from '@/components/MainBanner'
@@ -21,8 +22,8 @@ export default function Home() {
         <MainBanner />
         <ListVideos />
         <DemoLeads />
-        <div style={{ height: '400px', background: '#FFF' }}></div>
       </main>
+      <Footer />
     </HomeContainer>
   )
 }

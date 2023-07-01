@@ -18,6 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     background: ${defaultTheme.colors.white};
     color: ${defaultTheme.colors.blue[800]};
     min-height: 100vh;
+    position: relative;
   }
 
   body, input, textarea, button {

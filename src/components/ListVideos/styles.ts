@@ -4,7 +4,7 @@ export const ListVideosContainer = styled.section`
   width: 100%;
   padding: 2rem 1rem;
 
-  > div {
+  > .max-content {
     width: 100%;
     max-width: 1024px;
     margin: 0 auto;

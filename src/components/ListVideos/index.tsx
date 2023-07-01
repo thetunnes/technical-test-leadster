@@ -12,6 +12,7 @@ import { Button } from '../Button'
 import db from '../../../db-video.json'
 import { Pagination } from '../Pagination'
 import { Loading } from '../Loading'
+import { Modal } from '../Modal'
 
 interface IVideo {
   id: number
@@ -29,8 +30,14 @@ export function ListVideos() {
   const [tagsToNav, setTagsToNav] = useState<ITagsNav>({})
   const [isLoading, setIsLoading] = useState(true)
 
+  const [dataToModal, setDataToModal] = useState<IVideo | null>(null)
+
   const videosPerPage = 6
   const amountPages = Math.ceil(db.videos.length / videosPerPage)
+
+  function toggleModal(dataVideo?: IVideo) {
+    dataVideo ? setDataToModal(dataVideo) : setDataToModal(null)
+  }
 
   async function fetchJsonAPI(page?: string) {
     setIsLoading(true)
@@ -100,7 +107,7 @@ export function ListVideos() {
 
   return (
     <ListVideosContainer>
-      <div>
+      <div className="max-content">
         <HeaderNavVideos>
           {Object.keys(tagsToNav).map((tag) => (
             <Button
@@ -119,10 +126,9 @@ export function ListVideos() {
             ) : (
               <ListVideosWrapper>
                 {videosFiltered.map((video) => (
-                  <BoxVideo key={video.id}>
+                  <BoxVideo key={video.id} onClick={() => toggleModal(video)}>
                     <Image src={ThumbnailVideo} alt="" />
                     <p>{video.title}</p>
-                    <span>{video.tags.map((tag) => `${tag}, `)}</span>
                   </BoxVideo>
                 ))}
               </ListVideosWrapper>
@@ -137,6 +143,12 @@ export function ListVideos() {
           <p>Não foi possível listar livros</p>
         )}
       </div>
+
+      <Modal
+        isOpen={!!dataToModal}
+        onClose={() => toggleModal()}
+        dataVideo={dataToModal}
+      />
     </ListVideosContainer>
   )
 }
