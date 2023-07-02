@@ -11,7 +11,7 @@ export default async function fetcher<JSON = any>(
 
 export function useFetchVideos(page: number, videosPerPage: number) {
   const { data, isLoading, error } = useSWR(
-    `http://localhost:3004/videos?_page=${page}&_limit=${videosPerPage}`,
+    `${process.env.NEXT_PUBLIC_URL_API}/videos?_page=${page}&_limit=${videosPerPage}`,
     fetcher,
   )
 
