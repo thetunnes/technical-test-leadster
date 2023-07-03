@@ -39,4 +39,4 @@ Nesse componente, para ganhar uma melhor performance e rápida renderização, e
 
 Esse componente é um aprendizado que guardo com muito carinho kkk, poder criar um sistema de controlar paginação recebendo state e setState através de propriedades. 
 
-O Componente fala por si só, recebe **página atual**, **quantidade máxima** de páginas e **função** para o **onClick** (no caso, um estado que representa a próxima página a ser buscada).
+O Componente fala por si só, recebe **página atual**, **quantidade máxima** de páginas e **função** para o **onClick** (no caso, um estado que representa a próxima página a ser buscada). Ele renderiza: página inicial (0 ou 1), página atual, prevPage, nextPage e página final (qntd máxima). A página atual não é clicável e está sempre ativa, a prevPage é a **página atual - 1** e a nextPage é a **página atual + 1**.
